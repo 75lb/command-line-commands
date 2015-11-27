@@ -1,0 +1,23 @@
+{
+  "name": "command-line-commands",
+  "author": "Lloyd Brookes <75pound@gmail.com>",
+  "version": "0.0.0",
+  "description": "command-line-commands",
+  "repository": "https://github.com/75lb/command-line-commands.git",
+  "license": "MIT",
+  "main": "./lib/command-line-commands.js",
+  "bin": {
+    "command-line-commands": "bin/cli.js"
+  },
+  "keywords": [],
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "scripts": {
+    "test": "tape test/*.js",
+    "docs": "jsdoc2md -t jsdoc2md/README.hbs lib/*.js > README.md; echo"
+  },
+  "dependencies": {
+    "command-line-args": "^2.1.1"
+  }
+}

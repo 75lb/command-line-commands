@@ -4,13 +4,15 @@
 [![Dependency Status](https://david-dm.org/75lb/command-line-commands.svg)](https://david-dm.org/75lb/command-line-commands)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](https://github.com/feross/standard)
 
+***documentation in progress***
+
 <a name="module_command-line-commands"></a>
 ## command-line-commands
 Add a git-like command interface to your app.
 
 **Example**  
 ```js
-const commandLineCommands = require('../')
+const commandLineCommands = require('command-line-commands')
 
 const cli = commandLineCommands([
   { name: 'help' },

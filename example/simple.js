@@ -3,7 +3,7 @@ const commandLineCommands = require('../')
 
 const cli = commandLineCommands([
   { name: 'help' },
-  { name: 'run', optionDefinitions: [ { name: 'why', type: String } ] }
+  { name: 'run', definitions: [ { name: 'why', type: String } ] }
 ])
 
 const command = cli.parse()

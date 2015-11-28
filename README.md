@@ -6,6 +6,52 @@
 
 <a name="module_command-line-commands"></a>
 ## command-line-commands
+**Example**  
+```js
+const commandLineCommands = require('../')
+
+const cli = commandLineCommands([
+  { name: 'help' },
+  { name: 'run', definitions: [ { name: 'why', type: String } ] }
+])
+
+const command = cli.parse()
+
+switch (command.name) {
+  case 'help':
+    console.log("I can't help you.")
+    break
+  case 'run':
+    console.log(`${command.options.why}: this is not a good reason.`)
+    break
+  default:
+    console.log('Unknown command.')
+}
+```
+
+* [command-line-commands](#module_command-line-commands)
+  * [CommandLineCommands](#exp_module_command-line-commands--CommandLineCommands) ⏏
+    * [new CommandLineCommands(commands)](#new_module_command-line-commands--CommandLineCommands_new)
+    * [.parse([argv])](#module_command-line-commands--CommandLineCommands+parse) ⇒ <code>object</code>
+
+<a name="exp_module_command-line-commands--CommandLineCommands"></a>
+### CommandLineCommands ⏏
+**Kind**: Exported class  
+<a name="new_module_command-line-commands--CommandLineCommands_new"></a>
+#### new CommandLineCommands(commands)
+
+| Param | Type |
+| --- | --- |
+| commands | <code>array</code> | 
+
+<a name="module_command-line-commands--CommandLineCommands+parse"></a>
+#### commandLineCommands.parse([argv]) ⇒ <code>object</code>
+**Kind**: instance method of <code>[CommandLineCommands](#exp_module_command-line-commands--CommandLineCommands)</code>  
+
+| Param | Type |
+| --- | --- |
+| [argv] | <code>array</code> | 
+
 
 * * *
 

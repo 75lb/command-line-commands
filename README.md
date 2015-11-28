@@ -8,19 +8,22 @@
 
 <a name="module_command-line-commands"></a>
 ## command-line-commands
-Add a git-like command interface to your app.
+Add a git-like command interface to your app. Wraps [command-line-args](https://github.com/75lb/command-line-args).
 
 **Example**  
 ```js
 const commandLineCommands = require('command-line-commands')
 
+// define your commands
 const cli = commandLineCommands([
   { name: 'help' },
   { name: 'run', definitions: [ { name: 'why', type: String } ] }
 ])
 
+// parse the command line
 const command = cli.parse()
 
+// respond
 switch (command.name) {
   case 'help':
     console.log("I can't help you.")
@@ -31,6 +34,18 @@ switch (command.name) {
   default:
     console.log('Unknown command.')
 }
+```
+
+Output (assumes your app name is `example`):
+```
+$ example help
+I can't help you.
+
+$ example run --why terror
+terror: this is not a good reason.
+
+$ example hide
+Unknown command.
 ```
 
 * [command-line-commands](#module_command-line-commands)

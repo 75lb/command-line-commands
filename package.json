@@ -1,7 +1,7 @@
 {
   "name": "command-line-commands",
   "author": "Lloyd Brookes <75pound@gmail.com>",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "command-line-commands",
   "repository": "https://github.com/75lb/command-line-commands.git",
   "license": "MIT",
@@ -41,5 +41,9 @@
     "jsdoc-to-markdown": "^1.2.1",
     "tape": "^4.2.2"
   },
-  "standard": { "ignore": [ "es5" ] }
+  "standard": {
+    "ignore": [
+      "es5"
+    ]
+  }
 }

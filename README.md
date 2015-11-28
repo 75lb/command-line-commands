@@ -6,6 +6,8 @@
 
 <a name="module_command-line-commands"></a>
 ## command-line-commands
+Add a git-like command interface to your app.
+
 **Example**  
 ```js
 const commandLineCommands = require('../')

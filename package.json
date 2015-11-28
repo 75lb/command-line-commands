@@ -5,24 +5,41 @@
   "description": "command-line-commands",
   "repository": "https://github.com/75lb/command-line-commands.git",
   "license": "MIT",
-  "main": "./lib/command-line-commands.js",
+  "main": "index",
   "bin": {
     "command-line-commands": "bin/cli.js"
   },
-  "keywords": [],
+  "keywords": [
+    "argv",
+    "parse",
+    "argument",
+    "args",
+    "option",
+    "parser",
+    "parsing",
+    "cli",
+    "command",
+    "commands",
+    "line"
+  ],
   "engines": {
     "node": ">=0.10.0"
   },
   "scripts": {
     "test": "tape test/*.js",
-    "docs": "jsdoc2md -t jsdoc2md/README.hbs lib/*.js > README.md; echo"
+    "docs": "jsdoc2md -t jsdoc2md/README.hbs lib/*.js > README.md; echo",
+    "es5": "babel --no-comments lib --out-dir es5"
   },
   "dependencies": {
     "array-back": "^1.0.2",
-    "command-line-args": "^2.1.1"
+    "command-line-args": "^2.1.1",
+    "core-js": "^1.2.6",
+    "feature-detect-es6": "^1.1.0"
   },
   "devDependencies": {
+    "babel": "^5.8.34",
     "jsdoc-to-markdown": "^1.2.1",
     "tape": "^4.2.2"
-  }
+  },
+  "standard": { "ignore": [ "es5" ] }
 }

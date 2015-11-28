@@ -3,7 +3,7 @@ var test = require('tape')
 var commandLineCommands = require('../')
 
 test('parse: simple', function (t) {
-  const commands = [
+  var commands = [
     {
       name: 'eat',
       definitions: [ { name: 'food' } ]
@@ -13,8 +13,8 @@ test('parse: simple', function (t) {
       definitions: [ { name: 'hours' } ]
     }
   ]
-  const cli = commandLineCommands(commands)
-  let command = cli.parse([ 'eat', '--food', 'peas' ])
+  var cli = commandLineCommands(commands)
+  var command = cli.parse([ 'eat', '--food', 'peas' ])
   t.deepEqual(command, {
     name: 'eat',
     options: { food: 'peas' }
@@ -28,9 +28,9 @@ test('parse: simple', function (t) {
 })
 
 test('parse: no definitions', function (t) {
-  const commands = [ { name: 'eat' } ]
-  const cli = commandLineCommands(commands)
-  let command = cli.parse([ 'eat' ])
+  var commands = [ { name: 'eat' } ]
+  var cli = commandLineCommands(commands)
+  var command = cli.parse([ 'eat' ])
   t.deepEqual(command, {
     name: 'eat',
     options: { }
@@ -39,10 +39,10 @@ test('parse: no definitions', function (t) {
 })
 
 test('parse: no definitions, but options passed', function (t) {
-  const commands = [ { name: 'eat' } ]
-  const cli = commandLineCommands(commands)
-  t.throws(() => {
-    let command = cli.parse([ 'eat', '--food', 'peas' ])
+  var commands = [ { name: 'eat' } ]
+  var cli = commandLineCommands(commands)
+  t.throws(function () {
+    cli.parse([ 'eat', '--food', 'peas' ])
   })
   t.end()
 })

@@ -49,9 +49,9 @@ Unknown command.
 ```
 
 * [command-line-commands](#module_command-line-commands)
-  * [CommandLineCommands](#exp_module_command-line-commands--CommandLineCommands) ⏏
-    * [new CommandLineCommands(commands)](#new_module_command-line-commands--CommandLineCommands_new)
-    * [.parse([argv])](#module_command-line-commands--CommandLineCommands+parse) ⇒ <code>object</code>
+    * [CommandLineCommands](#exp_module_command-line-commands--CommandLineCommands) ⏏
+        * [new CommandLineCommands(commands)](#new_module_command-line-commands--CommandLineCommands_new)
+        * [.parse([argv])](#module_command-line-commands--CommandLineCommands+parse) ⇒ <code>object</code>
 
 <a name="exp_module_command-line-commands--CommandLineCommands"></a>
 ### CommandLineCommands ⏏

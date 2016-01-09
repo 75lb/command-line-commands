@@ -4,7 +4,7 @@ if (!detect.newArrayFeatures()) {
   require('core-js/es6/array')
 }
 
-if (detect.class() && detect.arrowFunction()) {
+if (detect.all('class', 'arrowFunction')) {
   module.exports = require('./lib/command-line-commands')
 } else {
   module.exports = require('./es5/command-line-commands')

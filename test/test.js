@@ -47,16 +47,4 @@ test('parse: no definitions, but options passed', function (t) {
   t.end()
 })
 
-test('usage: simple', function (t) {
-  var commands = [
-    {
-      name: 'eat',
-      definitions: [ { name: 'food', description: 'food option' } ]
-    }
-  ];
-  var cli = commandLineCommands(commands);
-  var usage = cli.getUsage('eat', { title: 'test' });
-  t.ok(/test/.test(usage), 'title present');
-  t.ok(/food option/.test(usage), 'description present');
-  t.end()
-})
+test('parse: no command specified')

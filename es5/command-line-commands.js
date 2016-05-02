@@ -6,6 +6,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 var commandLineArgs = require('command-line-args');
 var arrayify = require('array-back');
+var ansi = require('ansi-escape-sequences');
+var t = require('typical');
+var columnLayout = require('column-layout');
+var os = require('os');
 
 module.exports = factory;
 
@@ -40,14 +44,21 @@ var CommandLineCommands = function () {
     }
   }, {
     key: 'getUsage',
-    value: function getUsage(commandName, options) {
+    value: function getUsage(templateData, commandName) {
       var output = '';
-      var commandDefinition = this.commands.find(function (c) {
-        return c.name === commandName;
-      });
-      if (commandDefinition) {
-        var cli = commandLineArgs(commandDefinition.definitions);
-        output = cli.getUsage(options);
+      if (commandName) {
+        var commandDefinition = this.commands.find(function (c) {
+          return c.name === commandName;
+        });
+        if (commandDefinition) {
+          var cli = commandLineArgs(commandDefinition.definitions);
+          output = cli.getUsage(templateData);
+        }
+      } else {
+        var titleSection = new Section(templateData.title, templateData.description);
+        var commands = Commands.create(this.commands);
+        var commandSection = new Section('Command list', commands.print());
+        output = titleSection + '\n' + commandSection;
       }
 
       return output;
@@ -60,3 +71,124 @@ var CommandLineCommands = function () {
 function factory(commands) {
   return new CommandLineCommands(commands);
 }
+
+var Lines = function () {
+  function Lines() {
+    _classCallCheck(this, Lines);
+
+    this.list = [];
+  }
+
+  _createClass(Lines, [{
+    key: 'add',
+    value: function add(content) {
+      var _this = this;
+
+      arrayify(content).forEach(function (line) {
+        return _this.list.push(ansi.format(line));
+      });
+    }
+  }, {
+    key: 'emptyLine',
+    value: function emptyLine() {
+      this.list.push('');
+    }
+  }]);
+
+  return Lines;
+}();
+
+var Section = function () {
+  function Section(title, content, skipIndent) {
+    _classCallCheck(this, Section);
+
+    this.title = title;
+    this.content = content;
+    this.skipIndent = skipIndent;
+  }
+
+  _createClass(Section, [{
+    key: 'toString',
+    value: function toString() {
+      var lines = new Lines();
+      var content = this.content;
+      var skipIndent = this.skipIndent;
+
+      if (this.title) {
+        lines.add(ansi.format(this.title, ['underline', 'bold']));
+        lines.emptyLine();
+      }
+
+      if (!content) {
+        return lines.list;
+      } else {
+        if (t.isString(content)) {
+          lines.add(indentString(content));
+        } else if (Array.isArray(content) && content.every(t.isString)) {
+          lines.add(skipIndent ? content : indentArray(content));
+        } else if (Array.isArray(content) && content.every(t.isPlainObject)) {
+          lines.add(columnLayout.lines(content, {
+            padding: { left: '  ', right: ' ' }
+          }));
+        } else if (t.isPlainObject(content)) {
+          if (!content.options || !content.data) {
+            throw new Error('must have an "options" or "data" property\n' + JSON.stringify(content));
+          }
+          Object.assign({ padding: { left: '  ', right: ' ' } }, content.options);
+          lines.add(columnLayout.lines(content.data.map(function (row) {
+            return formatRow(row);
+          }), content.options));
+        } else {
+          var message = 'invalid input - \'content\' must be a string, array of strings, or array of plain objects:\n\n' + JSON.stringify(content);
+          throw new Error(message);
+        }
+
+        lines.emptyLine();
+        return lines.list.join(os.EOL);
+      }
+    }
+  }]);
+
+  return Section;
+}();
+
+function indentString(string) {
+  return '  ' + string;
+}
+function indentArray(array) {
+  return array.map(indentString);
+}
+function formatRow(row) {
+  for (var key in row) {
+    row[key] = ansi.format(row[key]);
+  }
+  return row;
+}
+
+var Commands = function () {
+  function Commands(commands) {
+    _classCallCheck(this, Commands);
+
+    this.list = commands;
+  }
+
+  _createClass(Commands, [{
+    key: 'print',
+    value: function print() {
+      var list = this.list.map(function (command) {
+        return {
+          name: command.name,
+          description: command.commandLineArgs.usage.description
+        };
+      });
+      return columnLayout(list);
+    }
+  }], [{
+    key: 'create',
+    value: function create(commands) {
+      return new this(commands);
+    }
+  }]);
+
+  return Commands;
+}();

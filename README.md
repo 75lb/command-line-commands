@@ -52,7 +52,7 @@ Unknown command.
 * [command-line-commands](#module_command-line-commands)
     * [CommandLineCommands](#exp_module_command-line-commands--CommandLineCommands) ⏏
         * [new CommandLineCommands(commands)](#new_module_command-line-commands--CommandLineCommands_new)
-        * [.parse([argv])](#module_command-line-commands--CommandLineCommands+parse) ⇒ <code>object</code>
+        * [.parse([argv])](#module_command-line-commands--CommandLineCommands+parse) ⇒ <code>Object</code>
         * [.getUsage([commandName], [options])](#module_command-line-commands--CommandLineCommands+getUsage) ⇒ <code>string</code>
 
 <a name="exp_module_command-line-commands--CommandLineCommands"></a>
@@ -69,7 +69,7 @@ Unknown command.
 
 <a name="module_command-line-commands--CommandLineCommands+parse"></a>
 
-#### commandLineCommands.parse([argv]) ⇒ <code>object</code>
+#### cli.parse([argv]) ⇒ <code>Object</code>
 **Kind**: instance method of <code>[CommandLineCommands](#exp_module_command-line-commands--CommandLineCommands)</code>  
 
 | Param | Type |
@@ -78,7 +78,7 @@ Unknown command.
 
 <a name="module_command-line-commands--CommandLineCommands+getUsage"></a>
 
-#### commandLineCommands.getUsage([commandName], [options]) ⇒ <code>string</code>
+#### cli.getUsage([commandName], [options]) ⇒ <code>string</code>
 Generates a usage guide for the specified command. Please see [command-line-usage](https://github.com/75lb/command-line-usage) for full instructions of how to use.
 
 **Kind**: instance method of <code>[CommandLineCommands](#exp_module_command-line-commands--CommandLineCommands)</code>  

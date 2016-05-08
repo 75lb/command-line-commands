@@ -48,3 +48,14 @@ test('parse: no definitions, but options passed', function (t) {
 })
 
 test('parse: no command specified')
+
+test('parse: unknown command', function (t) {
+  var commands = [ { name: 'eat' } ];
+  var cli = commandLineCommands(commands)
+  var command = cli.parse([ 'sleep' ])
+  t.deepEqual(command, {
+    error: 'Unknown command',
+    command: 'sleep'
+  })
+  t.end()
+})

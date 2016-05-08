@@ -10,6 +10,7 @@ var ansi = require('ansi-escape-sequences');
 var t = require('typical');
 var columnLayout = require('column-layout');
 var os = require('os');
+var objectGet = require('object-get');
 
 module.exports = factory;
 
@@ -26,21 +27,13 @@ var CommandLineCommands = function () {
       if (argv) {
         argv = arrayify(argv);
       } else {
-        argv = process.argv.slice(0);
+        argv = process.argv;
         argv.splice(0, 2);
       }
       var commandName = argv.shift();
-      var output = {};
+      commandName = commandName || null;
 
-      var commandDefinition = this.commands.find(function (c) {
-        return c.name === commandName;
-      });
-      if (commandDefinition) {
-        var cli = commandLineArgs(commandDefinition.definitions);
-        output.name = commandName;
-        output.options = cli.parse(argv);
-      }
-      return output;
+      return commandName;
     }
   }, {
     key: 'getUsage',
@@ -57,7 +50,7 @@ var CommandLineCommands = function () {
       } else {
         var titleSection = new Section(templateData.title, templateData.description);
         var commands = Commands.create(this.commands);
-        var commandSection = new Section('Command list', commands.print());
+        var commandSection = new Section('Command list', commands.toString());
         output = titleSection + '\n' + commandSection;
       }
 
@@ -120,10 +113,10 @@ var Section = function () {
       }
 
       if (!content) {
-        return lines.list;
+        return lines.list.join(os.EOL);
       } else {
         if (t.isString(content)) {
-          lines.add(indentString(content));
+          lines.add(indentArray(content.split(/\r?\n/)));
         } else if (Array.isArray(content) && content.every(t.isString)) {
           lines.add(skipIndent ? content : indentArray(content));
         } else if (Array.isArray(content) && content.every(t.isPlainObject)) {
@@ -173,12 +166,12 @@ var Commands = function () {
   }
 
   _createClass(Commands, [{
-    key: 'print',
-    value: function print() {
+    key: 'toString',
+    value: function toString() {
       var list = this.list.map(function (command) {
         return {
           name: command.name,
-          description: command.commandLineArgs.usage.description
+          description: objectGet(command, 'usage.description')
         };
       });
       return columnLayout(list);

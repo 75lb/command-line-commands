@@ -33,7 +33,8 @@ switch (command.name) {
     console.log(`${command.options.why}: this is not a good reason.`)
     break
   default:
-    console.log('Unknown command.')
+    console.log(command.error + ':' + command.command);
+
 }
 ```
 
@@ -46,7 +47,7 @@ $ example run --why terror
 terror: this is not a good reason.
 
 $ example hide
-Unknown command.
+Unknown command: hide
 ```
 
 * [command-line-commands](#module_command-line-commands)

@@ -1,6 +1,6 @@
 'use strict';
 
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -9,7 +9,7 @@ var arrayify = require('array-back');
 
 module.exports = factory;
 
-var CommandLineCommands = (function () {
+var CommandLineCommands = function () {
   function CommandLineCommands(commands) {
     _classCallCheck(this, CommandLineCommands);
 
@@ -35,13 +35,16 @@ var CommandLineCommands = (function () {
         var cli = commandLineArgs(commandDefinition.definitions);
         output.name = commandName;
         output.options = cli.parse(argv);
+      } else {
+        output.error = 'Unknown command';
+        output.command = commandName;
       }
       return output;
     }
   }]);
 
   return CommandLineCommands;
-})();
+}();
 
 function factory(commands) {
   return new CommandLineCommands(commands);

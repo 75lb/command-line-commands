@@ -1,11 +1,16 @@
 'use strict';
 
 var arrayify = require('array-back');
-var option = require('command-line-args/lib/option');
+var option = require('command-line-args/es5/option');
 
 exports.parse = parse;
 
 function parse(commands, argv) {
+  if (!commands || Array.isArray(commands) && !commands.length) {
+    var err = new Error('Please supply one or more commands');
+    err.name = 'NO_COMMANDS';
+    throw err;
+  }
   if (argv) {
     argv = arrayify(argv);
   } else {

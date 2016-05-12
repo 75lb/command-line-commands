@@ -3,42 +3,44 @@ var test = require('tape')
 var commandLineCommands = require('../')
 
 test('parse: simple', function (t) {
-  var commands = [
-    {
-      name: 'eat',
-      definitions: [ { name: 'food' } ]
-    },
-    {
-      name: 'sleep',
-      definitions: [ { name: 'hours' } ]
-    }
-  ]
-  var cli = commandLineCommands(commands)
-  var command = cli.parse([ 'eat', '--food', 'peas' ])
-  t.deepEqual(command, {
-    name: 'eat',
-    options: { food: 'peas' }
-  })
-  command = cli.parse([ 'sleep', '--hours', '2' ])
-  t.deepEqual(command, {
-    name: 'sleep',
-    options: { hours: '2' }
-  })
+  var commands = [ 'eat', 'sleep' ]
+
+  var clc = commandLineCommands.parse(commands, [ 'eat', '--food', 'peas' ])
+  t.deepEqual(clc.command, 'eat')
+  t.deepEqual(clc.argv, [ '--food', 'peas' ])
+
+  clc = commandLineCommands.parse(commands, [ 'sleep', '--hours', '2' ])
+  t.deepEqual(clc.command, 'sleep')
+  t.deepEqual(clc.argv, [ '--hours', '2' ])
+
   t.end()
 })
 
-test('parse: no definitions', function (t) {
-  var commands = [ { name: 'eat' } ]
-  var cli = commandLineCommands(commands)
-  var command = cli.parse([ 'eat' ])
-  t.deepEqual(command, {
-    name: 'eat',
-    options: { }
-  })
-  t.end()
+test('parse: no commands defined', function (t) {
+  t.plan(4)
+  try {
+    var clc = commandLineCommands.parse([], [ 'eat' ])
+  } catch (err) {
+    t.strictEqual(err.name, 'NO_COMMANDS')
+  }
+  try {
+    var clc = commandLineCommands.parse(undefined, [ 'eat' ])
+  } catch (err) {
+    t.strictEqual(err.name, 'NO_COMMANDS')
+  }
+  try {
+    var clc = commandLineCommands.parse([])
+  } catch (err) {
+    t.strictEqual(err.name, 'NO_COMMANDS')
+  }
+  try {
+    var clc = commandLineCommands.parse()
+  } catch (err) {
+    t.strictEqual(err.name, 'NO_COMMANDS')
+  }
 })
 
-test('parse: no definitions, but options passed', function (t) {
+test.skip('parse: no definitions, but options passed', function (t) {
   var commands = [ { name: 'eat' } ]
   var cli = commandLineCommands(commands)
   t.throws(function () {
@@ -49,7 +51,7 @@ test('parse: no definitions, but options passed', function (t) {
 
 test('parse: no command specified')
 
-test('parse: unknown command', function (t) {
+test.skip('parse: unknown command', function (t) {
   var commands = [ { name: 'eat' } ]
   var cli = commandLineCommands(commands)
   var command = cli.parse([ 'sleep' ])

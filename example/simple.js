@@ -1,20 +1,22 @@
 'use strict'
 const commandLineCommands = require('../')
+const commandLineArgs = require('command-line-args')
 
-const cli = commandLineCommands([
-  { name: 'help' },
-  { name: 'run', definitions: [ { name: 'why', type: String } ] }
-])
+const { command, argv } = commandLineCommands.parse([ 'help', 'run' ])
+const optionDefinitions = {
+  run: [
+    { name: 'why', type: String }
+  ]
+}
 
-const command = cli.parse()
+const cli = commandLineArgs(optionDefinitions[command])
+const options = cli.parse(argv)
 
-switch (command.name) {
+switch (command) {
   case 'help':
     console.log("I can't help you.")
     break
   case 'run':
-    console.log(`${command.options.why}: this is not a good reason.`)
+    console.log(`${options.why}: this is not a good reason.`)
     break
-  default:
-    console.log('Unknown command.')
 }

@@ -3,19 +3,19 @@
 const commandLineCommands = require('../')
 const commandLineArgs = require('command-line-args')
 const clc = commandLineCommands([
-  { name: null },
   { name: 'help' }
 ])
-const command = clc.parse()
+const { command, argv } = clc.parse()
 // console.log(command)
 
 const cli = {
-  default: commandLineArgs({
+  null: commandLineArgs({
     definitions: [
       { name: 'version', alias: 'v', type: Boolean, description: 'Print the version number.' }
     ],
     usage: {
       title: 'git',
+      description: 'Git is a free and open source distributed version control system designed to handle everything from small to very large projects with speed and efficiency.',
       synopsis: 'git <options> <command>'
     }
   }),
@@ -30,7 +30,7 @@ const cli = {
   }),
   commit: commandLineArgs({
     definitions: [
-      { name: 'message', type: String, description: 'Commit message.' }
+      { name: 'message', alias: 'm', type: String, description: 'Commit message.' }
     ],
     usage: {
       title: 'git commit',
@@ -44,24 +44,28 @@ let options
 
 switch (command) {
   case null:
-    options = cli.default.parse(process.argv)
+    options = cli.null.parse(argv)
     if (options.version) {
       console.log('version 90')
     } else {
-      console.log(cli.default.getUsage())
+      console.log(cli.null.getUsage())
+      console.log(clc.getCommandList())
     }
     break
 
   case 'help':
-    options = cli.help.parse(process.argv)
+    options = cli.help.parse(argv)
     if (options.topic) {
       console.log(cli[options.topic].getUsage())
     }
     break
 
   case 'commit':
-    options = cli.commit.parse(process.argv)
+    options = cli.commit.parse(argv)
     if (options.message) {
       console.log('commit: ' + options.message)
+    } else {
+      console.log(cli.commit.getUsage())
     }
+    break
 }

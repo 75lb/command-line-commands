@@ -11,6 +11,7 @@ var t = require('typical');
 var columnLayout = require('column-layout');
 var os = require('os');
 var objectGet = require('object-get');
+var option = require('command-line-args/lib/option');
 
 module.exports = factory;
 
@@ -27,13 +28,14 @@ var CommandLineCommands = function () {
       if (argv) {
         argv = arrayify(argv);
       } else {
-        argv = process.argv;
+        argv = process.argv.slice(0);
         argv.splice(0, 2);
       }
-      var commandName = argv.shift();
-      commandName = commandName || null;
 
-      return commandName;
+      return {
+        command: option.isOption(argv[0]) || !argv.length ? null : argv.shift(),
+        argv: argv
+      };
     }
   }, {
     key: 'getUsage',
@@ -55,6 +57,13 @@ var CommandLineCommands = function () {
       }
 
       return output;
+    }
+  }, {
+    key: 'getCommandList',
+    value: function getCommandList() {
+      var commands = Commands.create(this.commands);
+      var commandSection = new Section('Command list', commands.toString());
+      return commandSection.toString();
     }
   }]);
 

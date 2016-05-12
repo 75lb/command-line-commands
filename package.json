@@ -32,7 +32,7 @@
     "array-back": "^1.0.3",
     "column-layout": "^2.1.1",
     "command-line-args": "^2.1.6",
-    "core-js": "^2.3.0",
+    "core-js": "^2.4.0",
     "feature-detect-es6": "^1.2.0",
     "object-get": "^2.0.4",
     "typical": "^2.4.2"

@@ -2,7 +2,9 @@
 const commandLineCommands = require('../')
 const commandLineArgs = require('command-line-args')
 
-const { command, argv } = commandLineCommands.parse([ 'help', 'run' ])
+const validCommands = [ 'help', 'run' ]
+const { command, argv } = commandLineCommands.parse(validCommands)
+
 const optionDefinitions = {
   run: [
     { name: 'why', type: String }

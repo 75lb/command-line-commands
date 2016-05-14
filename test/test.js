@@ -17,27 +17,22 @@ test('parse: simple', function (t) {
 })
 
 test('parse: no commands defined', function (t) {
-  t.plan(4)
-  try {
-    var clc = commandLineCommands.parse([], [ 'eat' ])
-  } catch (err) {
-    t.strictEqual(err.name, 'NO_COMMANDS')
-  }
-  try {
-    var clc = commandLineCommands.parse(undefined, [ 'eat' ])
-  } catch (err) {
-    t.strictEqual(err.name, 'NO_COMMANDS')
-  }
-  try {
-    var clc = commandLineCommands.parse([])
-  } catch (err) {
-    t.strictEqual(err.name, 'NO_COMMANDS')
-  }
-  try {
-    var clc = commandLineCommands.parse()
-  } catch (err) {
-    t.strictEqual(err.name, 'NO_COMMANDS')
-  }
+  t.plan(5)
+  t.throws(function () {
+    commandLineCommands.parse([], [ 'eat' ])
+  })
+  t.throws(function () {
+    commandLineCommands.parse(undefined, [ 'eat' ])
+  })
+  t.throws(function () {
+    commandLineCommands.parse([])
+  })
+  t.throws(function () {
+    commandLineCommands.parse([], [ 'eat' ])
+  })
+  t.throws(function () {
+    commandLineCommands.parse()
+  })
 })
 
 test.skip('parse: no definitions, but options passed', function (t) {

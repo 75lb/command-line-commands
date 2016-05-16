@@ -3,9 +3,9 @@
 var arrayify = require('array-back');
 var option = require('command-line-args/es5/option');
 
-module.exports = parse;
+module.exports = commandLineCommands;
 
-function parse(commands, argv) {
+function commandLineCommands(commands, argv) {
   if (!commands || Array.isArray(commands) && !commands.length) {
     throw new Error('Please supply one or more commands');
   }

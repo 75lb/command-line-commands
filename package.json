@@ -2,7 +2,7 @@
   "name": "command-line-commands",
   "author": "Lloyd Brookes <75pound@gmail.com>",
   "version": "1.0.0",
-  "description": "A lightweight module to help build a git-like command interface for your app.",
+  "description": "Add a git-like command interface to your app.",
   "repository": "https://github.com/75lb/command-line-commands.git",
   "license": "MIT",
   "main": "index",

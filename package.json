@@ -1,7 +1,7 @@
 {
   "name": "command-line-commands",
   "author": "Lloyd Brookes <75pound@gmail.com>",
-  "version": "0.1.2",
+  "version": "1.0.0",
   "description": "A lightweight module to help build a git-like command interface for your app.",
   "repository": "https://github.com/75lb/command-line-commands.git",
   "license": "MIT",

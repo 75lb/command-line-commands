@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 'use strict'
-const clc = require('../')
+const commandLineCommands = require('../../')
 const commandLineArgs = require('command-line-args')
-const argData = require('./git-args')
+const argData = require('./arg-data')
 
-const { command, argv } = clc.parse([ null, 'help', 'commit' ])
+const { command, argv } = commandLineCommands.parse([ null, 'help', 'commit' ])
 const cli = commandLineArgs(argData.cli[command])
 const options = cli.parse(argv)
 const usage = cli.getUsage()

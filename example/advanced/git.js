@@ -6,6 +6,8 @@ const commandLineUsage = require('command-line-usage')
 const argData = require('./arg-data')
 
 const { command, argv } = commandLineCommands([ null, 'help', 'commit' ])
+
+/* important: pass in the argv returned by `commandLineCommands()` */
 const options = commandLineArgs(argData[command].definitions).parse(argv)
 const usage = commandLineUsage(argData[command].usage)
 

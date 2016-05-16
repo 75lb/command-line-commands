@@ -14,7 +14,7 @@ Create a list of valid commands (`null` represents "no command"). Supply it to `
 const commandLineCommands = require('command-line-commands')
 
 const validCommands = [ null, 'clean', 'update', 'install' ]
-const { command, argv } = commandLineCommands.parse(validCommands)
+const { command, argv } = commandLineCommands(validCommands)
 
 console.log('command: %s', command)
 console.log('argv:    %s', JSON.stringify(argv))

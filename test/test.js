@@ -5,11 +5,11 @@ var commandLineCommands = require('../')
 test('parse: simple', function (t) {
   var commands = [ 'eat', 'sleep' ]
 
-  var clc = commandLineCommands.parse(commands, [ 'eat', '--food', 'peas' ])
+  var clc = commandLineCommands(commands, [ 'eat', '--food', 'peas' ])
   t.deepEqual(clc.command, 'eat')
   t.deepEqual(clc.argv, [ '--food', 'peas' ])
 
-  clc = commandLineCommands.parse(commands, [ 'sleep', '--hours', '2' ])
+  clc = commandLineCommands(commands, [ 'sleep', '--hours', '2' ])
   t.deepEqual(clc.command, 'sleep')
   t.deepEqual(clc.argv, [ '--hours', '2' ])
 
@@ -19,19 +19,19 @@ test('parse: simple', function (t) {
 test('parse: no commands defined', function (t) {
   t.plan(5)
   t.throws(function () {
-    commandLineCommands.parse([], [ 'eat' ])
+    commandLineCommands([], [ 'eat' ])
   })
   t.throws(function () {
-    commandLineCommands.parse(undefined, [ 'eat' ])
+    commandLineCommands(undefined, [ 'eat' ])
   })
   t.throws(function () {
-    commandLineCommands.parse([])
+    commandLineCommands([])
   })
   t.throws(function () {
-    commandLineCommands.parse([], [ 'eat' ])
+    commandLineCommands([], [ 'eat' ])
   })
   t.throws(function () {
-    commandLineCommands.parse()
+    commandLineCommands()
   })
 })
 

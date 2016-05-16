@@ -14,7 +14,7 @@ Create a list of valid commands (`null` represents "no command"). Supply it to `
 const commandLineCommands = require('command-line-commands')
 
 const validCommands = [ null, 'clean', 'update', 'install' ]
-const { command, argv } = commandLineCommands.parse(validCommands)
+const { command, argv } = commandLineCommands(validCommands)
 
 console.log('command: %s', command)
 console.log('argv:    %s', JSON.stringify(argv))
@@ -49,12 +49,12 @@ Both examples use [command-line-args](https://github.com/75lb/command-line-args)
 ```js
 const commandLineCommands = require('command-line-commands')
 ```
-<a name="module_command-line-commands.parse"></a>
+<a name="exp_module_command-line-commands--parse"></a>
 
-### commandLineCommands.parse(commands, [argv]) ⇒ <code>Object</code>
+### parse(commands, [argv]) ⇒ <code>Object</code> ⏏
 Parses the `argv` value supplied (or `process.argv` by default), extracting and returning the `command` and remainder of `argv`. The command will be the first value in the `argv` array unless it is an option (e.g. `--help`).
 
-**Kind**: static method of <code>[command-line-commands](#module_command-line-commands)</code>  
+**Kind**: Exported function  
 **Throws**:
 
 - `INVALID_COMMAND` - user supplied a command not specified in `commands`.

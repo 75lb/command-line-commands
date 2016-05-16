@@ -3,7 +3,7 @@
 var arrayify = require('array-back');
 var option = require('command-line-args/es5/option');
 
-exports.parse = parse;
+module.exports = parse;
 
 function parse(commands, argv) {
   if (!commands || Array.isArray(commands) && !commands.length) {

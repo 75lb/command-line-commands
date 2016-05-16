@@ -3,7 +3,7 @@ const commandLineCommands = require('../')
 const commandLineArgs = require('command-line-args')
 
 const validCommands = [ 'load', 'print' ]
-const { command, argv } = commandLineCommands.parse(validCommands)
+const { command, argv } = commandLineCommands(validCommands)
 
 const optionDefinitions = {
   load: [
@@ -16,7 +16,7 @@ const optionDefinitions = {
 
 const cli = commandLineArgs(optionDefinitions[command])
 
-/* important: pass in the argv returned by `commandLineCommands.parse()` */
+/* important: pass in the argv returned by `commandLineCommands()` */
 const options = cli.parse(argv)
 
 switch (command) {

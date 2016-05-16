@@ -45,12 +45,12 @@ Both examples use [command-line-args](https://github.com/75lb/command-line-args)
 - [Advanced](https://github.com/75lb/command-line-commands/blob/next/example/advanced/git.js): A more complete example, implementing part of the git command interface.
 
 # API Reference
-<a name="exp_module_command-line-commands--parse"></a>
+<a name="module_command-line-commands.parse"></a>
 
-### parse(commands, [argv]) ⇒ <code>Object</code> ⏏
+### commandLineCommands.parse(commands, [argv]) ⇒ <code>Object</code>
 Parses the `argv` value supplied (or `process.argv` by default), extracting and returning the `command` and remainder of `argv`. The command will be the first value in the `argv` array unless it is an option (e.g. `--help`).
 
-**Kind**: Exported function  
+**Kind**: static method of <code>[command-line-commands](#module_command-line-commands)</code>  
 **Throws**:
 
 - `INVALID_COMMAND` - user supplied a command not specified in `commands`.

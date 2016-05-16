@@ -2,12 +2,12 @@
 'use strict'
 const commandLineCommands = require('../../')
 const commandLineArgs = require('command-line-args')
+const commandLineUsage = require('command-line-usage')
 const argData = require('./arg-data')
 
 const { command, argv } = commandLineCommands.parse([ null, 'help', 'commit' ])
-const cli = commandLineArgs(argData.cli[command])
-const options = cli.parse(argv)
-const usage = cli.getUsage()
+const options = commandLineArgs(argData[command].definitions).parse(argv)
+const usage = commandLineUsage(argData[command].usage)
 
 switch (command) {
   case null:
@@ -20,7 +20,9 @@ switch (command) {
 
   case 'help':
     if (options.topic) {
-      console.log(commandLineArgs(argData.cli[options.topic]).getUsage())
+      console.log(commandLineUsage(argData[options.topic].usage))
+    } else {
+      console.log(commandLineUsage(argData.help.usage))
     }
     break
 

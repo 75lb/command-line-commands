@@ -45,6 +45,10 @@ Both examples use [command-line-args](https://github.com/75lb/command-line-args)
 - [Advanced](https://github.com/75lb/command-line-commands/blob/next/example/advanced/git.js): A more complete example, implementing part of the git command interface.
 
 # API Reference
+**Example**  
+```js
+const commandLineCommands = require('command-line-commands')
+```
 <a name="module_command-line-commands.parse"></a>
 
 ### commandLineCommands.parse(commands, [argv]) ⇒ <code>Object</code>

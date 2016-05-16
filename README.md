@@ -5,9 +5,7 @@
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](https://github.com/feross/standard)
 
 # command-line-commands
-Add a git-like command interface to your app.
-
-This lightweight module is intended to compliment, not extend your existing option-parsing solution. Given a list of valid command strings, `.parse()` will either throw (invalid command) or return two pieces of information: the supplied command and any remaining command-line args.
+Add a git-like command interface to your app. This lightweight module is intended to compliment, not extend your existing option-parsing solution.
 
 ## Synopsis
 
@@ -32,10 +30,6 @@ $ example --verbose
 command: null
 argv:    ["--verbose"]
 
-$ example --version
-command: null
-argv:    ["--version"]
-
 $ example install --save something
 command: install
 argv:    ["--save","something"]
@@ -50,27 +44,29 @@ INVALID_COMMAND: Invalid command: remove
     etc..
 ```
 
-From here, you are free to make a decision based on the command and remaining args supplied.
+From here, you are free to make a decision based on the `command` and `argv` received.
 
 ## Usage Examples
 
 - [Simple](https://github.com/75lb/command-line-commands/blob/next/example/simple.js): A basic example showing usage alongside [command-line-args](https://github.com/75lb/command-line-args).
-- [Advanced](https://github.com/75lb/command-line-commands/blob/next/example/advanced/git.js): A more complete example, based on git. 
+- [Advanced](https://github.com/75lb/command-line-commands/blob/next/example/advanced/git.js): A more complete example, implementing the git command interface.
 
 # API Reference
 <a name="exp_module_command-line-commands--parse"></a>
 
 ### parse(commands, [argv]) ⇒ <code>Object</code> ⏏
+Parses the `argv` value supplied (or `process.argv` by default), extracting and returning the `command` and remainder of `argv`. The command will be the first arg supplied. You may then pass `argv` into your arg-parser to get the options.
+
 **Kind**: Exported function  
 **Throws**:
 
-- `INVALID_COMMAND`
+- `INVALID_COMMAND` - user supplied a command not specified in `commands`.
 
 
 | Param | Type | Description |
 | --- | --- | --- |
-| commands | <code>Array.&lt;string&gt;</code> | A list of valid commands. May include `null`. |
-| [argv] | <code>Array.&lt;string&gt;</code> | A argv array. |
+| commands | <code>string</code> &#124; <code>Array.&lt;string&gt;</code> | One or more command strings, one of which the user must supply. Include `null` to represent "no command", effectively making commands optional. |
+| [argv] | <code>Array.&lt;string&gt;</code> | An argv array, defaults to the global `process.argv` if not supplied. |
 
 
 * * *

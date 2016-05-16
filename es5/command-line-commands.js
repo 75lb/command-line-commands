@@ -7,9 +7,7 @@ exports.parse = parse;
 
 function parse(commands, argv) {
   if (!commands || Array.isArray(commands) && !commands.length) {
-    var err = new Error('Please supply one or more commands');
-    err.name = 'NO_COMMANDS';
-    throw err;
+    throw new Error('Please supply one or more commands');
   }
   if (argv) {
     argv = arrayify(argv);
@@ -21,7 +19,10 @@ function parse(commands, argv) {
   var command = option.isOption(argv[0]) || !argv.length ? null : argv.shift();
 
   if (commands.indexOf(command) === -1) {
-    throw new Error('Invalid command');
+    var err = new Error('Command not recognised: ' + command);
+    err.command = command;
+    err.name = 'INVALID_COMMAND';
+    throw err;
   }
 
   return { command: command, argv: argv };

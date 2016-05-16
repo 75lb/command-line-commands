@@ -5,7 +5,7 @@
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](https://github.com/feross/standard)
 
 # command-line-commands
-Add a git-like command interface to your app. This lightweight module is intended to compliment, not extend your existing option-parsing solution.
+A lightweight module to help build a git-like command interface for your app.
 
 ## Synopsis
 
@@ -33,15 +33,6 @@ argv:    ["--verbose"]
 $ example install --save something
 command: install
 argv:    ["--save","something"]
-
-$ example remove
-/Users/lloydb/Documents/75lb/command-line-commands/lib/command-line-commands.js:39
-    throw err
-    ^
-
-INVALID_COMMAND: Invalid command: remove
-    at Object.parse (/Users/lloydb/Documents/75lb/command-line-commands/lib/command-line-commands.js:36:17)
-    etc..
 ```
 
 From here, you are free to make a decision based on the `command` and `argv` received.

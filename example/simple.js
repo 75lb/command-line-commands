@@ -1,20 +1,34 @@
 'use strict'
 const commandLineCommands = require('../')
+const commandLineArgs = require('command-line-args')
 
-const cli = commandLineCommands([
-  { name: 'help' },
-  { name: 'run', definitions: [ { name: 'why', type: String } ] }
-])
+const validCommands = [ 'load', 'print' ]
+const { command, argv } = commandLineCommands(validCommands)
 
-const command = cli.parse()
+const optionDefinitions = {
+  load: [
+    { name: 'file', type: String }
+  ],
+  print: [
+    { name: 'colour', type: Boolean }
+  ]
+}
 
-switch (command.name) {
-  case 'help':
-    console.log("I can't help you.")
+const cli = commandLineArgs(optionDefinitions[command])
+
+/* important: pass in the argv returned by `commandLineCommands()` */
+const options = cli.parse(argv)
+
+switch (command) {
+  case 'load':
+    if (options.file) {
+      console.log(`Loading: ${options.file}`)
+    } else {
+      console.log('please supply a filename')
+    }
     break
-  case 'run':
-    console.log(`${command.options.why}: this is not a good reason.`)
+
+  case 'print':
+    console.log('Printing %s', options.colour ? 'in colour' : 'in B&W' )
     break
-  default:
-    console.log('Unknown command.')
 }

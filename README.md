@@ -1,77 +1,71 @@
 [![view on npm](http://img.shields.io/npm/v/command-line-commands.svg)](https://www.npmjs.org/package/command-line-commands)
-[![npm module downloads per month](http://img.shields.io/npm/dm/command-line-commands.svg)](https://www.npmjs.org/package/command-line-commands)
+[![npm module downloads](http://img.shields.io/npm/dt/command-line-commands.svg)](https://www.npmjs.org/package/command-line-commands)
 [![Build Status](https://travis-ci.org/75lb/command-line-commands.svg?branch=master)](https://travis-ci.org/75lb/command-line-commands)
 [![Dependency Status](https://david-dm.org/75lb/command-line-commands.svg)](https://david-dm.org/75lb/command-line-commands)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](https://github.com/feross/standard)
 
-***documentation in progress***
+# command-line-commands
+A lightweight module to help build a git-like command interface for your app.
 
-<a name="module_command-line-commands"></a>
-## command-line-commands
-Add a git-like command interface to your app. Wraps [command-line-args](https://github.com/75lb/command-line-args).
+## Synopsis
 
-**Example**  
+Create a list of valid commands (`null` represents "no command"). Supply it to `.parse()`, receiving back an object with two properties: `command` (the supplied command) and `argv` (the remainder of the command line args):
 ```js
 const commandLineCommands = require('command-line-commands')
 
-// define your commands
-const cli = commandLineCommands([
-  { name: 'help' },
-  { name: 'run', definitions: [ { name: 'why', type: String } ] }
-])
+const validCommands = [ null, 'clean', 'update', 'install' ]
+const { command, argv } = commandLineCommands(validCommands)
 
-// parse the command line
-const command = cli.parse()
-
-// respond
-switch (command.name) {
-  case 'help':
-    console.log("I can't help you.")
-    break
-  case 'run':
-    console.log(`${command.options.why}: this is not a good reason.`)
-    break
-  default:
-    console.log('Unknown command.')
-}
+console.log('command: %s', command)
+console.log('argv:    %s', JSON.stringify(argv))
 ```
 
-Output (assumes your app name is `example`):
+Assuming the above script is installed as `example`:
 ```
-$ example help
-I can't help you.
+$ example
+command: null
+argv:    []
 
-$ example run --why terror
-terror: this is not a good reason.
+$ example --verbose
+command: null
+argv:    ["--verbose"]
 
-$ example hide
-Unknown command.
+$ example install --save something
+command: install
+argv:    ["--save","something"]
 ```
 
-* [command-line-commands](#module_command-line-commands)
-    * [CommandLineCommands](#exp_module_command-line-commands--CommandLineCommands) ⏏
-        * [new CommandLineCommands(commands)](#new_module_command-line-commands--CommandLineCommands_new)
-        * [.parse([argv])](#module_command-line-commands--CommandLineCommands+parse) ⇒ <code>object</code>
+From here, you can make a decision how to proceed based on the `command` and `argv` received.
 
-<a name="exp_module_command-line-commands--CommandLineCommands"></a>
-### CommandLineCommands ⏏
-**Kind**: Exported class  
-<a name="new_module_command-line-commands--CommandLineCommands_new"></a>
-#### new CommandLineCommands(commands)
+## Usage Examples
 
-| Param | Type |
-| --- | --- |
-| commands | <code>array</code> | 
+Both examples use [command-line-args](https://github.com/75lb/command-line-args) for option-parsing.
 
-<a name="module_command-line-commands--CommandLineCommands+parse"></a>
-#### commandLineCommands.parse([argv]) ⇒ <code>object</code>
-**Kind**: instance method of <code>[CommandLineCommands](#exp_module_command-line-commands--CommandLineCommands)</code>  
+- [Simple](https://github.com/75lb/command-line-commands/blob/next/example/simple.js): A basic app with a couple of commands.
+- [Advanced](https://github.com/75lb/command-line-commands/blob/next/example/advanced/git.js): A more complete example, implementing part of the git command interface.
 
-| Param | Type |
-| --- | --- |
-| [argv] | <code>array</code> | 
+# API Reference
+**Example**  
+```js
+const commandLineCommands = require('command-line-commands')
+```
+<a name="exp_module_command-line-commands--parse"></a>
+
+### parse(commands, [argv]) ⇒ <code>Object</code> ⏏
+Parses the `argv` value supplied (or `process.argv` by default), extracting and returning the `command` and remainder of `argv`. The command will be the first value in the `argv` array unless it is an option (e.g. `--help`).
+
+**Kind**: Exported function  
+**Throws**:
+
+- `INVALID_COMMAND` - user supplied a command not specified in `commands`.
+
+
+| Param | Type | Description |
+| --- | --- | --- |
+| commands | <code>string</code> &#124; <code>Array.&lt;string&gt;</code> | One or more command strings, one of which the user must supply. Include `null` to represent "no command" (effectively making a command optional). |
+| [argv] | <code>Array.&lt;string&gt;</code> | An argv array, defaults to the global `process.argv` if not supplied. |
 
 
 * * *
 
-&copy; 2015 Lloyd Brookes \<75pound@gmail.com\>. Documented by [jsdoc-to-markdown](https://github.com/jsdoc2md/jsdoc-to-markdown).
+&copy; 2015-16 Lloyd Brookes \<75pound@gmail.com\>. Documented by [jsdoc-to-markdown](https://github.com/jsdoc2md/jsdoc-to-markdown).

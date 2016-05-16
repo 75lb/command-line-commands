@@ -1,48 +1,29 @@
 'use strict';
 
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var commandLineArgs = require('command-line-args');
 var arrayify = require('array-back');
+var option = require('command-line-args/es5/option');
 
-module.exports = factory;
+module.exports = parse;
 
-var CommandLineCommands = (function () {
-  function CommandLineCommands(commands) {
-    _classCallCheck(this, CommandLineCommands);
-
-    this.commands = commands;
+function parse(commands, argv) {
+  if (!commands || Array.isArray(commands) && !commands.length) {
+    throw new Error('Please supply one or more commands');
+  }
+  if (argv) {
+    argv = arrayify(argv);
+  } else {
+    argv = process.argv.slice(0);
+    argv.splice(0, 2);
   }
 
-  _createClass(CommandLineCommands, [{
-    key: 'parse',
-    value: function parse(argv) {
-      if (argv) {
-        argv = arrayify(argv);
-      } else {
-        argv = process.argv.slice(0);
-        argv.splice(0, 2);
-      }
-      var commandName = argv.shift();
-      var output = {};
+  var command = option.isOption(argv[0]) || !argv.length ? null : argv.shift();
 
-      var commandDefinition = this.commands.find(function (c) {
-        return c.name === commandName;
-      });
-      if (commandDefinition) {
-        var cli = commandLineArgs(commandDefinition.definitions);
-        output.name = commandName;
-        output.options = cli.parse(argv);
-      }
-      return output;
-    }
-  }]);
+  if (arrayify(commands).indexOf(command) === -1) {
+    var err = new Error('Command not recognised: ' + command);
+    err.command = command;
+    err.name = 'INVALID_COMMAND';
+    throw err;
+  }
 
-  return CommandLineCommands;
-})();
-
-function factory(commands) {
-  return new CommandLineCommands(commands);
+  return { command: command, argv: argv };
 }

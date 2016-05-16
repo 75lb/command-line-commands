@@ -1,13 +1,57 @@
 [![view on npm](http://img.shields.io/npm/v/command-line-commands.svg)](https://www.npmjs.org/package/command-line-commands)
-[![npm module downloads per month](http://img.shields.io/npm/dm/command-line-commands.svg)](https://www.npmjs.org/package/command-line-commands)
+[![npm module downloads](http://img.shields.io/npm/dt/command-line-commands.svg)](https://www.npmjs.org/package/command-line-commands)
 [![Build Status](https://travis-ci.org/75lb/command-line-commands.svg?branch=master)](https://travis-ci.org/75lb/command-line-commands)
 [![Dependency Status](https://david-dm.org/75lb/command-line-commands.svg)](https://david-dm.org/75lb/command-line-commands)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](https://github.com/feross/standard)
 
-***documentation in progress***
+# command-line-commands
+A lightweight module to help build a git-like command interface for your app.
 
-{{>main}}
+## Synopsis
+
+Create a list of valid commands (`null` represents "no command"). Supply it to `.parse()`, receiving back an object with two properties: `command` (the supplied command) and `argv` (the remainder of the command line args):
+```js
+const commandLineCommands = require('command-line-commands')
+
+const validCommands = [ null, 'clean', 'update', 'install' ]
+const { command, argv } = commandLineCommands(validCommands)
+
+console.log('command: %s', command)
+console.log('argv:    %s', JSON.stringify(argv))
+```
+
+Assuming the above script is installed as `example`:
+```
+$ example
+command: null
+argv:    []
+
+$ example --verbose
+command: null
+argv:    ["--verbose"]
+
+$ example install --save something
+command: install
+argv:    ["--save","something"]
+```
+
+From here, you can make a decision how to proceed based on the `command` and `argv` received.
+
+## Usage Examples
+
+Both examples use [command-line-args](https://github.com/75lb/command-line-args) for option-parsing.
+
+- [Simple](https://github.com/75lb/command-line-commands/blob/next/example/simple.js): A basic app with a couple of commands.
+- [Advanced](https://github.com/75lb/command-line-commands/blob/next/example/advanced/git.js): A more complete example, implementing part of the git command interface.
+
+# API Reference
+{{#module name="command-line-commands"}}
+{{>body~}}
+{{>member-index~}}
+{{>separator~}}
+{{>members~}}
+{{/module}}
 
 * * *
 
-&copy; 2015 Lloyd Brookes \<75pound@gmail.com\>. Documented by [jsdoc-to-markdown](https://github.com/jsdoc2md/jsdoc-to-markdown).
+&copy; 2015-16 Lloyd Brookes \<75pound@gmail.com\>. Documented by [jsdoc-to-markdown](https://github.com/jsdoc2md/jsdoc-to-markdown).

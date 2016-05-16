@@ -7,11 +7,11 @@
 # command-line-commands
 Add a git-like command interface to your app.
 
-This lightweight module is intended to compliment, not extend your existing option-parsing solution. Given a list of valid commands, `.parse()` will either throw (invalid command) or return two pieces of information: the supplied command and remaining command-line args.
+This lightweight module is intended to compliment, not extend your existing option-parsing solution. Given a list of valid commands, `.parse()` will either throw (invalid command) or return two pieces of information: the supplied command and any remaining command-line args.
 
 ## Synopsis
 
-Supply your list of valid commands (`null` represents "no command") to `.parse()`:
+Create a list of valid commands (`null` represents "no command"). Supply it to `.parse()`, receiving back an object containing the command and remaining args:
 ```js
 const commandLineCommands = require('command-line-commands')
 
@@ -22,7 +22,7 @@ console.log('command: %s', command)
 console.log('argv: %s', JSON.stringify(argv))
 ```
 
-Then, imagining our script is installed as `example`, some output:
+Assuming the above script is installed as `example`:
 ```
 $ example
 command: null

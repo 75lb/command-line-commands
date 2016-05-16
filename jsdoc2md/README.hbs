@@ -35,12 +35,14 @@ command: install
 argv:    ["--save","something"]
 ```
 
-From here, you are free to make a decision based on the `command` and `argv` received.
+From here, you can make a decision how to proceed based on the `command` and `argv` received.
 
 ## Usage Examples
 
-- [Simple](https://github.com/75lb/command-line-commands/blob/next/example/simple.js): A basic example showing usage alongside [command-line-args](https://github.com/75lb/command-line-args).
-- [Advanced](https://github.com/75lb/command-line-commands/blob/next/example/advanced/git.js): A more complete example, implementing the git command interface.
+Both examples use [command-line-args](https://github.com/75lb/command-line-args) for option-parsing.
+
+- [Simple](https://github.com/75lb/command-line-commands/blob/next/example/simple.js): A basic app with a couple of commands.
+- [Advanced](https://github.com/75lb/command-line-commands/blob/next/example/advanced/git.js): A more complete example, implementing part of the git command interface.
 
 # API Reference
 {{#module name="command-line-commands"}}

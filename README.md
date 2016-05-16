@@ -35,18 +35,20 @@ command: install
 argv:    ["--save","something"]
 ```
 
-From here, you are free to make a decision based on the `command` and `argv` received.
+From here, you can make a decision how to proceed based on the `command` and `argv` received.
 
 ## Usage Examples
 
-- [Simple](https://github.com/75lb/command-line-commands/blob/next/example/simple.js): A basic example showing usage alongside [command-line-args](https://github.com/75lb/command-line-args).
-- [Advanced](https://github.com/75lb/command-line-commands/blob/next/example/advanced/git.js): A more complete example, implementing the git command interface.
+Both examples use [command-line-args](https://github.com/75lb/command-line-args) for option-parsing.
+
+- [Simple](https://github.com/75lb/command-line-commands/blob/next/example/simple.js): A basic app with a couple of commands.
+- [Advanced](https://github.com/75lb/command-line-commands/blob/next/example/advanced/git.js): A more complete example, implementing part of the git command interface.
 
 # API Reference
 <a name="exp_module_command-line-commands--parse"></a>
 
 ### parse(commands, [argv]) ⇒ <code>Object</code> ⏏
-Parses the `argv` value supplied (or `process.argv` by default), extracting and returning the `command` and remainder of `argv`. The command will be the first arg supplied. You may then pass `argv` into your arg-parser to get the options.
+Parses the `argv` value supplied (or `process.argv` by default), extracting and returning the `command` and remainder of `argv`. The command will be the first value in the `argv` array unless it is an option (e.g. `--help`).
 
 **Kind**: Exported function  
 **Throws**:
@@ -56,7 +58,7 @@ Parses the `argv` value supplied (or `process.argv` by default), extracting and 
 
 | Param | Type | Description |
 | --- | --- | --- |
-| commands | <code>string</code> &#124; <code>Array.&lt;string&gt;</code> | One or more command strings, one of which the user must supply. Include `null` to represent "no command", effectively making commands optional. |
+| commands | <code>string</code> &#124; <code>Array.&lt;string&gt;</code> | One or more command strings, one of which the user must supply. Include `null` to represent "no command" (effectively making a command optional). |
 | [argv] | <code>Array.&lt;string&gt;</code> | An argv array, defaults to the global `process.argv` if not supplied. |
 
 

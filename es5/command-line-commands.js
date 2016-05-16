@@ -18,7 +18,7 @@ function parse(commands, argv) {
 
   var command = option.isOption(argv[0]) || !argv.length ? null : argv.shift();
 
-  if (commands.indexOf(command) === -1) {
+  if (arrayify(commands).indexOf(command) === -1) {
     var err = new Error('Command not recognised: ' + command);
     err.command = command;
     err.name = 'INVALID_COMMAND';

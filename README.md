@@ -35,7 +35,40 @@ command: install
 argv:    ["--save","something"]
 ```
 
-From here, you can make a decision how to proceed based on the `command` and `argv` received.
+From here, you can make a decision how to proceed based on the `command` and `argv` received. For example, if no command (`null`) was passed, you could parse the remaining `argv` for general options:
+
+```js
+if (command === null) {
+  const commandLineArgs = require('command-line-args')
+  const cli = commandLineArgs([
+    { name: 'version', type: Boolean }
+  ])
+
+  // pass in the `argv` returned by `commandLineCommands()``
+  const options = cli.parse(argv)
+
+  if (options.version) {
+    console.log('version 1.0.1')
+  }
+}
+```
+
+Or, process an `install` command:
+```js
+if (command === 'install') {
+  const commandLineArgs = require('command-line-args')
+  const cli = commandLineArgs([
+    { name: 'save', type: Boolean },
+    { name: 'dir', type: String }
+  ])
+
+  // pass in the `argv` returned by `commandLineCommands()``
+  const options = cli.parse(argv)
+
+  // perform installation to the directory specified by `options.dir`.
+  installSomething(options.dir)
+}
+```
 
 ## Examples
 

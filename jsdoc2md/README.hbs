@@ -5,7 +5,7 @@
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](https://github.com/feross/standard)
 
 # command-line-commands
-A lightweight module to help build a git-like command interface for your app.
+A lightweight module to help build a git-like command interface for your app. It has one job - to extract and supply the command specified by the user. From there, you parse the remain args using your preferred command-line option parser (e.g. [command-line-args](https://github.com/75lb/command-line-args) or [minimist](https://github.com/substack/minimist)).
 
 ## Synopsis
 
@@ -20,7 +20,7 @@ console.log('command: %s', command)
 console.log('argv:    %s', JSON.stringify(argv))
 ```
 
-Assuming the above script is installed as `example`:
+Assuming the above script is installed as `example`, some output:
 ```
 $ example
 command: null

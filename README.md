@@ -5,7 +5,9 @@
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](https://github.com/feross/standard)
 
 # command-line-commands
-A lightweight module to help build a git-like command interface for your app. It has one job - to extract and supply the command specified by the user. From there, you parse the remain args using your preferred command-line option parser (e.g. [command-line-args](https://github.com/75lb/command-line-args) or [minimist](https://github.com/substack/minimist)).
+A lightweight module to help build a git-like command interface for your app.
+
+Given a list of valid commands, it's job is to extract the command specified by the user. From there, you can parse the remaining args using your preferred option parser (e.g. [command-line-args](https://github.com/75lb/command-line-args) or [minimist](https://github.com/substack/minimist)).
 
 ## Synopsis
 
@@ -50,23 +52,6 @@ if (command === null) {
   if (options.version) {
     console.log('version 1.0.1')
   }
-}
-```
-
-Or, process an `install` command:
-```js
-if (command === 'install') {
-  const commandLineArgs = require('command-line-args')
-  const cli = commandLineArgs([
-    { name: 'save', type: Boolean },
-    { name: 'dir', type: String }
-  ])
-
-  // pass in the `argv` returned by `commandLineCommands()``
-  const options = cli.parse(argv)
-
-  // perform installation to the directory specified by `options.dir`.
-  installSomething(options.dir)
 }
 ```
 

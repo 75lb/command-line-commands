@@ -14,10 +14,8 @@ const optionDefinitions = {
   ]
 }
 
-const cli = commandLineArgs(optionDefinitions[command])
-
 /* important: pass in the argv returned by `commandLineCommands()` */
-const options = cli.parse(argv)
+const options = commandLineArgs(optionDefinitions[command], argv)
 
 switch (command) {
   case 'load':

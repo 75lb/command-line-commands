@@ -33,6 +33,7 @@
   },
   "devDependencies": {
     "babel-preset-es2015": "^6.9.0",
+    "command-line-args": "^3.0.0",
     "command-line-usage": "^3.0.1",
     "jsdoc-to-markdown": "^1.3.6",
     "minimist": "^1.2.0",

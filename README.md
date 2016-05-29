@@ -7,7 +7,7 @@
 # command-line-commands
 A lightweight module to help build a git-like command interface for your app.
 
-Given a list of valid commands, it's job is to extract the command specified by the user. From there, you can parse the remaining args using your preferred option parser (e.g. [command-line-args](https://github.com/75lb/command-line-args) or [minimist](https://github.com/substack/minimist)).
+It's job is to extract the command specified, check it's valid and either return it or throw. From there, you can parse the remaining args using your preferred option parser (e.g. [command-line-args](https://github.com/75lb/command-line-args) or [minimist](https://github.com/substack/minimist)).
 
 ## Synopsis
 
@@ -18,36 +18,43 @@ const commandLineCommands = require('command-line-commands')
 const validCommands = [ null, 'clean', 'update', 'install' ]
 const { command, argv } = commandLineCommands(validCommands)
 
+/* print the command and remaining command-line args */
 console.log('command: %s', command)
 console.log('argv:    %s', JSON.stringify(argv))
 ```
 
-Assuming the above script is installed as `example`, some output:
+We'll assume the above script is installed as `example`. Running it without a command is valid (the `validCommands` list includes `null`):
 ```
 $ example
 command: null
 argv:    []
+```
 
+Running `example` without a command and one option:
+```
 $ example --verbose
 command: null
 argv:    ["--verbose"]
+```
 
+Running `example` with both a command and an option:
+```
 $ example install --save something
 command: install
 argv:    ["--save","something"]
 ```
 
-From here, you can make a decision how to proceed based on the `command` and `argv` received. For example, if no command (`null`) was passed, you could parse the remaining `argv` for general options:
+From here, you can make a decision how to proceed based on the `command` and `argv` received. For example, if no command (`null`) was passed, you could parse the remaining `argv` for general options (in this case using [command-line-args](https://github.com/75lb/command-line-args)):
 
 ```js
 if (command === null) {
   const commandLineArgs = require('command-line-args')
-  const cli = commandLineArgs([
+  const optionDefinitions = [
     { name: 'version', type: Boolean }
-  ])
+  ]
 
-  // pass in the `argv` returned by `commandLineCommands()``
-  const options = cli.parse(argv)
+  // pass in the `argv` returned by `commandLineCommands()`
+  const options = commandLineArgs(optionDefinitions, argv)
 
   if (options.version) {
     console.log('version 1.0.1')
@@ -55,7 +62,22 @@ if (command === null) {
 }
 ```
 
-## Examples
+The same example, using [minimist](https://github.com/substack/minimist):
+
+```js
+if (command === null) {
+  const minimist = require('minimist')
+
+  // pass in the `argv` returned by `commandLineCommands()``
+  const options = minimist(argv)
+
+  if (options.version) {
+    console.log('version 1.0.1')
+  }
+}
+```
+
+## More examples
 
 Both examples use [command-line-args](https://github.com/75lb/command-line-args) for option-parsing.
 

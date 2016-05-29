@@ -1,7 +1,7 @@
 'use strict';
 
 var arrayify = require('array-back');
-var option = require('command-line-args/es5/option');
+var option = require('./option');
 
 module.exports = commandLineCommands;
 

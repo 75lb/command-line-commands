@@ -7,7 +7,7 @@
 # command-line-commands
 A lightweight module to help build a git-like command interface for your app.
 
-It's job is to extract the command (the first argument, unless it's an option), check it's valid and either return it or throw. From there, you can parse the remaining args using your preferred option parser (e.g. [command-line-args](https://github.com/75lb/command-line-args), [minimist](https://github.com/substack/minimist) etc.).
+Its job is to extract the command (the first argument, unless it's an option), check it's valid and either return it or throw. From there, you can parse the remaining args using your preferred option parser (e.g. [command-line-args](https://github.com/75lb/command-line-args), [minimist](https://github.com/substack/minimist) etc.).
 
 ## Synopsis
 

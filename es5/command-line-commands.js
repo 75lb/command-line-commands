@@ -1,11 +1,11 @@
 'use strict';
 
-var arrayify = require('array-back');
-var option = require('./option');
-
 module.exports = commandLineCommands;
 
 function commandLineCommands(commands, argv) {
+  var arrayify = require('array-back');
+  var option = require('./option');
+
   if (!commands || Array.isArray(commands) && !commands.length) {
     throw new Error('Please supply one or more commands');
   }

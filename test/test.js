@@ -1,58 +1,56 @@
 'use strict'
-var test = require('tape')
+var TestRunner = require('test-runner')
 var commandLineCommands = require('../')
+var a = require('core-assert')
 
-test('parse: simple', function (t) {
+var runner = new TestRunner()
+
+runner.test('parse: simple', function () {
   var commands = [ 'eat', 'sleep' ]
 
   var clc = commandLineCommands(commands, [ 'eat', '--food', 'peas' ])
-  t.deepEqual(clc.command, 'eat')
-  t.deepEqual(clc.argv, [ '--food', 'peas' ])
+  a.deepEqual(clc.command, 'eat')
+  a.deepEqual(clc.argv, [ '--food', 'peas' ])
 
   clc = commandLineCommands(commands, [ 'sleep', '--hours', '2' ])
-  t.deepEqual(clc.command, 'sleep')
-  t.deepEqual(clc.argv, [ '--hours', '2' ])
-
-  t.end()
+  a.deepEqual(clc.command, 'sleep')
+  a.deepEqual(clc.argv, [ '--hours', '2' ])
 })
 
-test('parse: no commands defined', function (t) {
-  t.plan(5)
-  t.throws(function () {
+runner.test('parse: no commands defined', function () {
+  a.throws(function () {
     commandLineCommands([], [ 'eat' ])
   })
-  t.throws(function () {
+  a.throws(function () {
     commandLineCommands(undefined, [ 'eat' ])
   })
-  t.throws(function () {
+  a.throws(function () {
     commandLineCommands([])
   })
-  t.throws(function () {
+  a.throws(function () {
     commandLineCommands([], [ 'eat' ])
   })
-  t.throws(function () {
+  a.throws(function () {
     commandLineCommands()
   })
 })
 
-test.skip('parse: no definitions, but options passed', function (t) {
+runner.skip('parse: no definitions, but options passed', function () {
   var commands = [ { name: 'eat' } ]
   var cli = commandLineCommands(commands)
-  t.throws(function () {
+  a.throws(function () {
     cli.parse([ 'eat', '--food', 'peas' ])
   })
-  t.end()
 })
 
-test('parse: no command specified')
+runner.test('parse: no command specified')
 
-test.skip('parse: unknown command', function (t) {
+runner.skip('parse: unknown command', function () {
   var commands = [ { name: 'eat' } ]
   var cli = commandLineCommands(commands)
   var command = cli.parse([ 'sleep' ])
-  t.deepEqual(command, {
+  a.deepEqual(command, {
     error: 'Unknown command',
     command: 'sleep'
   })
-  t.end()
 })

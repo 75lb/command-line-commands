@@ -5,19 +5,19 @@ var a = require('core-assert')
 
 var runner = new TestRunner()
 
-runner.test('parse: simple', function () {
+runner.test('simple', function () {
   var commands = [ 'eat', 'sleep' ]
 
   var clc = commandLineCommands(commands, [ 'eat', '--food', 'peas' ])
-  a.deepEqual(clc.command, 'eat')
+  a.strictEqual(clc.command, 'eat')
   a.deepEqual(clc.argv, [ '--food', 'peas' ])
 
   clc = commandLineCommands(commands, [ 'sleep', '--hours', '2' ])
-  a.deepEqual(clc.command, 'sleep')
+  a.strictEqual(clc.command, 'sleep')
   a.deepEqual(clc.argv, [ '--hours', '2' ])
 })
 
-runner.test('parse: no commands defined', function () {
+runner.test('no commands defined', function () {
   a.throws(function () {
     commandLineCommands([], [ 'eat' ])
   })
@@ -35,22 +35,43 @@ runner.test('parse: no commands defined', function () {
   })
 })
 
-runner.skip('parse: no definitions, but options passed', function () {
-  var commands = [ { name: 'eat' } ]
-  var cli = commandLineCommands(commands)
+runner.test('no command specified', function () {
+  var clc
+  var commands = [ ]
+
+  /* throws if null not specified */
   a.throws(function () {
-    cli.parse([ 'eat', '--food', 'peas' ])
+    clc = commandLineCommands(commands, [ ])
   })
+
+  /* null specified */
+  commands = [ null ]
+  clc = commandLineCommands(commands, [ ])
+  a.strictEqual(clc.command, null)
+  a.deepEqual(clc.argv, [ ])
+
+  clc = commandLineCommands(commands, [ '--flag' ])
+  a.strictEqual(clc.command, null)
+  a.deepEqual(clc.argv, [ '--flag' ])
 })
 
-runner.test('parse: no command specified')
+runner.test('invalid command', function () {
+  var commands = [ 'eat', 'sleep' ]
+  var clc
 
-runner.skip('parse: unknown command', function () {
-  var commands = [ { name: 'eat' } ]
-  var cli = commandLineCommands(commands)
-  var command = cli.parse([ 'sleep' ])
-  a.deepEqual(command, {
-    error: 'Unknown command',
-    command: 'sleep'
-  })
+  a.throws(
+    function () {
+      clc = commandLineCommands(commands, [ 'cheese', '--food', 'peas' ])
+    },
+    function (err) {
+      return err.name === 'INVALID_COMMAND' && err.command === 'cheese'
+    }
+  )
+})
+
+runner.test('parse process.argv', function () {
+  var commands = [ null ]
+  var clc = commandLineCommands(commands)
+  a.strictEqual(clc.command, null)
+  a.deepEqual(clc.argv, [ '--files', 'test/test.js' ])
 })

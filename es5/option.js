@@ -12,11 +12,6 @@ var Arg = function () {
   }
 
   _createClass(Arg, [{
-    key: 'name',
-    value: function name(arg) {
-      return arg.match(this.re)[1];
-    }
-  }, {
     key: 'test',
     value: function test(arg) {
       return this.re.test(arg);

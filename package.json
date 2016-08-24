@@ -23,10 +23,10 @@
     "node": ">=0.10.0"
   },
   "scripts": {
-    "test": "test-runner test/*.js",
+    "test": "test-runner --files test/*.js",
     "docs": "jsdoc2md -t jsdoc2md/README.hbs lib/*.js > README.md; echo",
     "es5": "babel --presets babel-preset-es2015 --no-comments lib --out-dir es5",
-    "cover": "istanbul cover ./node_modules/.bin/test-runner test/*.js && cat coverage/lcov.info | ./node_modules/.bin/coveralls && rm -rf coverage; echo"
+    "cover": "istanbul cover ./node_modules/.bin/test-runner -- --files test/*.js && cat coverage/lcov.info | ./node_modules/.bin/coveralls && rm -rf coverage; echo"
   },
   "dependencies": {
     "array-back": "^1.0.3",
@@ -40,7 +40,7 @@
     "coveralls": "^2.11.12",
     "jsdoc-to-markdown": "^2.0.0-alpha.12",
     "minimist": "^1.2.0",
-    "test-runner": "^0.2.2"
+    "test-runner": "^0.2.3"
   },
   "standard": {
     "ignore": [

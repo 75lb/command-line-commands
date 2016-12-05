@@ -20,7 +20,7 @@
     "line"
   ],
   "engines": {
-    "node": ">=0.10.0"
+    "node": ">=0.12.0"
   },
   "scripts": {
     "test": "test-runner --files test/*.js",
@@ -29,18 +29,18 @@
     "cover": "istanbul cover ./node_modules/.bin/test-runner -- --files test/*.js && cat coverage/lcov.info | ./node_modules/.bin/coveralls && rm -rf coverage; echo"
   },
   "dependencies": {
-    "array-back": "^1.0.3",
+    "array-back": "^1.0.4",
     "feature-detect-es6": "^1.3.1"
   },
   "devDependencies": {
-    "babel-preset-es2015": "^6.13.2",
-    "command-line-args": "^3.0.1",
-    "command-line-usage": "^3.0.3",
-    "core-assert": "^0.2.0",
-    "coveralls": "^2.11.12",
-    "jsdoc-to-markdown": "^2.0.0-alpha.12",
+    "babel-preset-es2015": "^6.18.0",
+    "command-line-args": "^3.0.4",
+    "command-line-usage": "^3.0.8",
+    "core-assert": "^0.2.1",
+    "coveralls": "^2.11.15",
+    "jsdoc-to-markdown": "^2.0.1",
     "minimist": "^1.2.0",
-    "test-runner": "^0.2.3"
+    "test-runner": "^0.3.0"
   },
   "standard": {
     "ignore": [

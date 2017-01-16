@@ -1,14 +1,14 @@
 'use strict'
-var TestRunner = require('test-runner')
-var commandLineCommands = require('../')
-var a = require('core-assert')
+const TestRunner = require('test-runner')
+const commandLineCommands = require('../')
+const a = require('assert')
 
-var runner = new TestRunner()
+const runner = new TestRunner()
 
 runner.test('simple', function () {
-  var commands = [ 'eat', 'sleep' ]
+  const commands = [ 'eat', 'sleep' ]
 
-  var clc = commandLineCommands(commands, [ 'eat', '--food', 'peas' ])
+  let clc = commandLineCommands(commands, [ 'eat', '--food', 'peas' ])
   a.strictEqual(clc.command, 'eat')
   a.deepEqual(clc.argv, [ '--food', 'peas' ])
 
@@ -36,8 +36,8 @@ runner.test('no commands defined', function () {
 })
 
 runner.test('no command specified', function () {
-  var clc
-  var commands = [ ]
+  let clc
+  let commands = [ ]
 
   /* throws if null not specified */
   a.throws(function () {
@@ -56,8 +56,8 @@ runner.test('no command specified', function () {
 })
 
 runner.test('invalid command', function () {
-  var commands = [ 'eat', 'sleep' ]
-  var clc
+  const commands = [ 'eat', 'sleep' ]
+  let clc
 
   a.throws(
     function () {
@@ -70,8 +70,8 @@ runner.test('invalid command', function () {
 })
 
 runner.test('parse process.argv', function () {
-  var commands = [ null ]
-  var clc = commandLineCommands(commands)
+  const commands = [ null ]
+  const clc = commandLineCommands(commands)
   a.strictEqual(clc.command, null)
   a.deepEqual(clc.argv, [ '--files', 'test/test.js' ])
 })

@@ -5,7 +5,7 @@
   "description": "Add a git-like command interface to your app.",
   "repository": "https://github.com/75lb/command-line-commands.git",
   "license": "MIT",
-  "main": "index",
+  "main": "lib/command-line-commands.js",
   "keywords": [
     "argv",
     "parse",
@@ -20,31 +20,22 @@
     "line"
   ],
   "engines": {
-    "node": ">=0.12.0"
+    "node": ">=4.0.0"
   },
   "scripts": {
     "test": "test-runner --files test/*.js",
     "docs": "jsdoc2md -t jsdoc2md/README.hbs lib/*.js > README.md; echo",
-    "es5": "babel --presets babel-preset-es2015 --no-comments lib --out-dir es5",
     "cover": "istanbul cover ./node_modules/.bin/test-runner -- --files test/*.js && cat coverage/lcov.info | ./node_modules/.bin/coveralls && rm -rf coverage; echo"
   },
   "dependencies": {
-    "array-back": "^1.0.4",
-    "feature-detect-es6": "^1.3.1"
+    "array-back": "^1.0.4"
   },
   "devDependencies": {
-    "babel-preset-es2015": "^6.18.0",
-    "command-line-args": "^3.0.4",
-    "command-line-usage": "^3.0.8",
-    "core-assert": "^0.2.1",
+    "command-line-args": "^3.0.5",
+    "command-line-usage": "^4.0.0",
     "coveralls": "^2.11.15",
     "jsdoc-to-markdown": "^2.0.1",
     "minimist": "^1.2.0",
     "test-runner": "^0.3.0"
-  },
-  "standard": {
-    "ignore": [
-      "es5"
-    ]
   }
 }

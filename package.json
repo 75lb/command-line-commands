@@ -1,12 +1,14 @@
 {
   "name": "command-line-commands",
   "author": "Lloyd Brookes <75pound@gmail.com>",
-  "version": "1.0.4",
+  "version": "2.0.0",
   "description": "Add a git-like command interface to your app.",
   "repository": "https://github.com/75lb/command-line-commands.git",
   "license": "MIT",
   "main": "lib/command-line-commands.js",
-  "files": [ "lib" ],
+  "files": [
+    "lib"
+  ],
   "keywords": [
     "argv",
     "parse",

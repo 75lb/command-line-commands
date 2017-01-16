@@ -6,6 +6,7 @@
   "repository": "https://github.com/75lb/command-line-commands.git",
   "license": "MIT",
   "main": "lib/command-line-commands.js",
+  "files": [ "lib" ],
   "keywords": [
     "argv",
     "parse",

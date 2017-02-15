@@ -57,7 +57,7 @@ if (command === null) {
   ]
 
   // pass in the `argv` returned by `commandLineCommands()`
-  const options = commandLineArgs(optionDefinitions, { argv: argv })
+  const options = commandLineArgs(optionDefinitions, { argv })
 
   if (options.version) {
     console.log('version 1.0.1')
@@ -117,4 +117,4 @@ Parses the `argv` value supplied (or `process.argv` by default), extracting and 
 
 * * *
 
-&copy; 2015-16 Lloyd Brookes \<75pound@gmail.com\>. Documented by [jsdoc-to-markdown](https://github.com/jsdoc2md/jsdoc-to-markdown).
+&copy; 2015-17 Lloyd Brookes \<75pound@gmail.com\>. Documented by [jsdoc-to-markdown](https://github.com/jsdoc2md/jsdoc-to-markdown).

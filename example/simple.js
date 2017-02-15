@@ -15,7 +15,7 @@ const optionDefinitions = {
 }
 
 /* important: pass in the argv returned by `commandLineCommands()` */
-const options = commandLineArgs(optionDefinitions[command], argv)
+const options = commandLineArgs(optionDefinitions[command], { argv })
 
 switch (command) {
   case 'load':

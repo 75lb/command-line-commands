@@ -34,10 +34,10 @@
     "array-back": "^1.0.4"
   },
   "devDependencies": {
-    "command-line-args": "^3.0.5",
+    "command-line-args": "^4.0.1",
     "command-line-usage": "^4.0.0",
-    "coveralls": "^2.11.15",
-    "jsdoc-to-markdown": "^2.0.1",
+    "coveralls": "^2.11.16",
+    "jsdoc-to-markdown": "^3.0.0",
     "minimist": "^1.2.0",
     "test-runner": "^0.3.0"
   }

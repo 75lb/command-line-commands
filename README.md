@@ -57,7 +57,7 @@ if (command === null) {
   ]
 
   // pass in the `argv` returned by `commandLineCommands()`
-  const options = commandLineArgs(optionDefinitions, argv)
+  const options = commandLineArgs(optionDefinitions, { argv: argv })
 
   if (options.version) {
     console.log('version 1.0.1')

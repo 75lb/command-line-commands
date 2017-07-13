@@ -75,3 +75,23 @@ runner.test('parse process.argv', function () {
   a.strictEqual(clc.command, null)
   a.deepEqual(clc.argv, [ '--files', 'test/test.js' ])
 })
+
+runner.test('different types of option as the first arg', function () {
+  const commands = [ null ]
+
+  let clc = commandLineCommands(commands, [ '--one' ])
+  a.strictEqual(clc.command, null)
+  a.deepEqual(clc.argv, [ '--one' ])
+
+  clc = commandLineCommands(commands, [ '--one=two' ])
+  a.strictEqual(clc.command, null)
+  a.deepEqual(clc.argv, [ '--one=two' ])
+
+  clc = commandLineCommands(commands, [ '-o' ])
+  a.strictEqual(clc.command, null)
+  a.deepEqual(clc.argv, [ '-o' ])
+
+  clc = commandLineCommands(commands, [ '-of' ])
+  a.strictEqual(clc.command, null)
+  a.deepEqual(clc.argv, [ '-of' ])
+})

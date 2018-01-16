@@ -111,10 +111,10 @@ Parses the `argv` value supplied (or `process.argv` by default), extracting and 
 
 | Param | Type | Description |
 | --- | --- | --- |
-| commands | <code>string</code> &#124; <code>Array.&lt;string&gt;</code> | One or more command strings, one of which the user must supply. Include `null` to represent "no command" (effectively making a command optional). |
+| commands | <code>string</code> \| <code>Array.&lt;string&gt;</code> | One or more command strings, one of which the user must supply. Include `null` to represent "no command" (effectively making a command optional). |
 | [argv] | <code>Array.&lt;string&gt;</code> | An argv array, defaults to the global `process.argv` if not supplied. |
 
 
 * * *
 
-&copy; 2015-17 Lloyd Brookes \<75pound@gmail.com\>. Documented by [jsdoc-to-markdown](https://github.com/jsdoc2md/jsdoc-to-markdown).
+&copy; 2015-18 Lloyd Brookes \<75pound@gmail.com\>. Documented by [jsdoc-to-markdown](https://github.com/jsdoc2md/jsdoc-to-markdown).

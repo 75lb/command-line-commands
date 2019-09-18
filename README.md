@@ -2,7 +2,7 @@
 [![npm module downloads](http://img.shields.io/npm/dt/command-line-commands.svg)](https://www.npmjs.org/package/command-line-commands)
 [![Build Status](https://travis-ci.org/75lb/command-line-commands.svg?branch=master)](https://travis-ci.org/75lb/command-line-commands)
 [![Coverage Status](https://coveralls.io/repos/github/75lb/command-line-commands/badge.svg?branch=master)](https://coveralls.io/github/75lb/command-line-commands?branch=master)
-[![Dependency Status](https://david-dm.org/75lb/command-line-commands.svg)](https://david-dm.org/75lb/command-line-commands)
+[![Dependency Status](https://badgen.net/david/dep/75lb/command-line-commands)](https://david-dm.org/75lb/command-line-commands)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](https://github.com/feross/standard)
 
 # command-line-commands
@@ -117,4 +117,4 @@ Parses the `argv` value supplied (or `process.argv` by default), extracting and 
 
 * * *
 
-&copy; 2015-18 Lloyd Brookes \<75pound@gmail.com\>. Documented by [jsdoc-to-markdown](https://github.com/jsdoc2md/jsdoc-to-markdown).
+&copy; 2015-19 Lloyd Brookes \<75pound@gmail.com\>. Documented by [jsdoc-to-markdown](https://github.com/jsdoc2md/jsdoc-to-markdown).

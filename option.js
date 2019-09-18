@@ -1,4 +1,3 @@
-'use strict'
 /**
  * A module for testing for and extracting names from options (e.g. `--one`, `-o`)
  */

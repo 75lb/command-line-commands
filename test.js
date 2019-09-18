@@ -1,11 +1,10 @@
-'use strict'
-const TestRunner = require('test-runner')
-const commandLineCommands = require('../')
+const Tom = require('test-runner').Tom
+const commandLineCommands = require('./')
 const a = require('assert')
 
-const runner = new TestRunner()
+const tom = module.exports = new Tom('test')
 
-runner.test('simple', function () {
+tom.test('simple', function () {
   const commands = [ 'eat', 'sleep' ]
 
   let clc = commandLineCommands(commands, [ 'eat', '--food', 'peas' ])
@@ -17,7 +16,7 @@ runner.test('simple', function () {
   a.deepEqual(clc.argv, [ '--hours', '2' ])
 })
 
-runner.test('no commands defined', function () {
+tom.test('no commands defined', function () {
   a.throws(function () {
     commandLineCommands([], [ 'eat' ])
   })
@@ -35,7 +34,7 @@ runner.test('no commands defined', function () {
   })
 })
 
-runner.test('no command specified', function () {
+tom.test('no command specified', function () {
   let clc
   let commands = [ ]
 
@@ -55,7 +54,7 @@ runner.test('no command specified', function () {
   a.deepEqual(clc.argv, [ '--flag' ])
 })
 
-runner.test('invalid command', function () {
+tom.test('invalid command', function () {
   const commands = [ 'eat', 'sleep' ]
   let clc
 
@@ -69,14 +68,14 @@ runner.test('invalid command', function () {
   )
 })
 
-runner.test('parse process.argv', function () {
+tom.test('parse process.argv', function () {
   const commands = [ null ]
   const clc = commandLineCommands(commands)
   a.strictEqual(clc.command, null)
-  a.deepEqual(clc.argv, [ '--files', 'test/test.js' ])
+  a.deepEqual(clc.argv, [ '--files', 'test.js' ])
 })
 
-runner.test('different types of option as the first arg', function () {
+tom.test('different types of option as the first arg', function () {
   const commands = [ null ]
 
   let clc = commandLineCommands(commands, [ '--one' ])

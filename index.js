@@ -1,4 +1,3 @@
-'use strict'
 /**
  * @module command-line-commands
  * @example
@@ -41,5 +40,5 @@ function commandLineCommands (commands, argv) {
     throw err
   }
 
-  return { command: command, argv: argv }
+  return { command, argv }
 }

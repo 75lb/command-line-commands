@@ -5,7 +5,7 @@
   "description": "Add a git-like command interface to your app.",
   "repository": "https://github.com/75lb/command-line-commands.git",
   "license": "MIT",
-  "main": "lib/command-line-commands.js",
+  "main": "index.js",
   "files": [
     "index.js",
     "option.js"

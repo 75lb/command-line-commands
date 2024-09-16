@@ -10,7 +10,8 @@
   "license": "MIT",
   "files": [
     "index.js",
-    "option.js"
+    "option.js",
+    "dist"
   ],
   "type": "module",
   "exports": {

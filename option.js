@@ -12,10 +12,12 @@ class Arg {
   }
 }
 
-exports.isShort = new Arg(/^-([^\d-])$/)
-exports.isLong = new Arg(/^--(\S+)/)
-exports.isCombined = new Arg(/^-([^\d-]{2,})$/)
-exports.isOption = function (arg) {
-  return this.isShort.test(arg) || this.isLong.test(arg) || this.isCombined.test(arg)
+const isShort = new Arg(/^-([^\d-])$/)
+const isLong = new Arg(/^--(\S+)/)
+const isCombined = new Arg(/^-([^\d-]{2,})$/)
+const isOption = function (arg) {
+  return isShort.test(arg) || isLong.test(arg) || isCombined.test(arg)
 }
-exports.optEquals = new Arg(/^(--\S+)=(.*)/)
+const optEquals = new Arg(/^(--\S+)=(.*)/)
+
+export { isShort, isLong, isCombined, isOption, optEquals }

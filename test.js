@@ -1,22 +1,24 @@
-const Tom = require('test-runner').Tom
-const commandLineCommands = require('./')
-const a = require('assert')
+import commandLineCommands from 'command-line-commands'
+import { strict as a } from 'assert'
 
-const tom = module.exports = new Tom('test')
+const [test, only, skip] = [new Map(), new Map(), new Map()]
 
-tom.test('simple', function () {
+/* Tests which parse process.argv expect this array */
+process.argv = ['node', 'script', '--files', 'test.js']
+
+test.set('simple', function () {
   const commands = [ 'eat', 'sleep' ]
 
   let clc = commandLineCommands(commands, [ 'eat', '--food', 'peas' ])
-  a.strictEqual(clc.command, 'eat')
+  a.equal(clc.command, 'eat')
   a.deepEqual(clc.argv, [ '--food', 'peas' ])
 
   clc = commandLineCommands(commands, [ 'sleep', '--hours', '2' ])
-  a.strictEqual(clc.command, 'sleep')
+  a.equal(clc.command, 'sleep')
   a.deepEqual(clc.argv, [ '--hours', '2' ])
 })
 
-tom.test('no commands defined', function () {
+test.set('no commands defined', function () {
   a.throws(function () {
     commandLineCommands([], [ 'eat' ])
   })
@@ -34,7 +36,7 @@ tom.test('no commands defined', function () {
   })
 })
 
-tom.test('no command specified', function () {
+test.set('no command specified', function () {
   let clc
   let commands = [ ]
 
@@ -46,15 +48,15 @@ tom.test('no command specified', function () {
   /* null specified */
   commands = [ null ]
   clc = commandLineCommands(commands, [ ])
-  a.strictEqual(clc.command, null)
+  a.equal(clc.command, null)
   a.deepEqual(clc.argv, [ ])
 
   clc = commandLineCommands(commands, [ '--flag' ])
-  a.strictEqual(clc.command, null)
+  a.equal(clc.command, null)
   a.deepEqual(clc.argv, [ '--flag' ])
 })
 
-tom.test('invalid command', function () {
+test.set('invalid command', function () {
   const commands = [ 'eat', 'sleep' ]
   let clc
 
@@ -68,29 +70,31 @@ tom.test('invalid command', function () {
   )
 })
 
-tom.test('parse process.argv', function () {
+test.set('parse process.argv', function () {
   const commands = [ null ]
   const clc = commandLineCommands(commands)
-  a.strictEqual(clc.command, null)
+  a.equal(clc.command, null)
   a.deepEqual(clc.argv, [ '--files', 'test.js' ])
 })
 
-tom.test('different types of option as the first arg', function () {
+test.set('different types of option as the first arg', function () {
   const commands = [ null ]
 
   let clc = commandLineCommands(commands, [ '--one' ])
-  a.strictEqual(clc.command, null)
+  a.equal(clc.command, null)
   a.deepEqual(clc.argv, [ '--one' ])
 
   clc = commandLineCommands(commands, [ '--one=two' ])
-  a.strictEqual(clc.command, null)
+  a.equal(clc.command, null)
   a.deepEqual(clc.argv, [ '--one=two' ])
 
   clc = commandLineCommands(commands, [ '-o' ])
-  a.strictEqual(clc.command, null)
+  a.equal(clc.command, null)
   a.deepEqual(clc.argv, [ '-o' ])
 
   clc = commandLineCommands(commands, [ '-of' ])
-  a.strictEqual(clc.command, null)
+  a.equal(clc.command, null)
   a.deepEqual(clc.argv, [ '-of' ])
 })
+
+export { test, only, skip }

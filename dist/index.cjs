@@ -1,5 +1,27 @@
-import arrayify from 'array-back'
-import { isOption } from './option.js'
+'use strict';
+
+var arrayify = require('array-back');
+
+/**
+ * A module for testing for and extracting names from options (e.g. `--one`, `-o`)
+ */
+
+class Arg {
+  constructor (re) {
+    this.re = re;
+  }
+
+  test (arg) {
+    return this.re.test(arg)
+  }
+}
+
+const isShort = new Arg(/^-([^\d-])$/);
+const isLong = new Arg(/^--(\S+)/);
+const isCombined = new Arg(/^-([^\d-]{2,})$/);
+const isOption = function (arg) {
+  return isShort.test(arg) || isLong.test(arg) || isCombined.test(arg)
+};
 
 /**
  * @module command-line-commands
@@ -21,25 +43,25 @@ function commandLineCommands (commands, argv) {
     throw new Error('Please supply one or more commands')
   }
   if (argv) {
-    argv = arrayify(argv)
+    argv = arrayify(argv);
   } else {
     /* if no argv supplied, assume we are parsing process.argv. */
     /* never modify the global process.argv directly. */
-    argv = process.argv.slice(0)
-    argv.splice(0, 2)
+    argv = process.argv.slice(0);
+    argv.splice(0, 2);
   }
 
   /* the command is the first arg, unless it's an option (e.g. --help) */
-  const command = (isOption(argv[0]) || !argv.length) ? null : argv.shift()
+  const command = (isOption(argv[0]) || !argv.length) ? null : argv.shift();
 
   if (arrayify(commands).indexOf(command) === -1) {
-    const err = new Error('Command not recognised: ' + command)
-    err.command = command
-    err.name = 'INVALID_COMMAND'
+    const err = new Error('Command not recognised: ' + command);
+    err.command = command;
+    err.name = 'INVALID_COMMAND';
     throw err
   }
 
   return { command, argv }
 }
 
-export default commandLineCommands
+module.exports = commandLineCommands;

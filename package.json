@@ -3,12 +3,20 @@
   "author": "Lloyd Brookes <75pound@gmail.com>",
   "version": "3.0.2",
   "description": "Add a git-like command interface to your app.",
-  "repository": "https://github.com/75lb/command-line-commands.git",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/75lb/command-line-commands.git"
+  },
   "license": "MIT",
   "files": [
     "index.js",
     "option.js"
   ],
+  "type": "module",
+  "exports": {
+    "import": "./index.js",
+    "require": "./dist/index.cjs"
+  },
   "keywords": [
     "argv",
     "parse",
@@ -23,22 +31,28 @@
     "line"
   ],
   "engines": {
-    "node": ">=8"
+    "node": ">=12.17"
   },
   "scripts": {
-    "test": "test-runner --files test.js",
-    "docs": "jsdoc2md -t README.hbs index.js > README.md",
-    "cover": "istanbul cover ./node_modules/.bin/test-runner -- --files test/*.js && cat coverage/lcov.info | ./node_modules/.bin/coveralls && rm -rf coverage; echo"
+    "test": "npm run dist && npm run test:ci",
+    "test:ci": "75lb-nature test-runner test.js",
+    "docs": "75lb-nature jsdoc2md -t README.hbs index.js > README.md",
+    "dist": "75lb-nature cjs-build index.js"
+  },
+  "peerDependencies": {
+    "@75lb/nature": "latest"
+  },
+  "peerDependenciesMeta": {
+    "@75lb/nature": {
+      "optional": true
+    }
   },
   "dependencies": {
-    "array-back": "^4.0.1"
+    "array-back": "^6.2.2"
   },
   "devDependencies": {
-    "command-line-args": "^5.1.1",
-    "command-line-usage": "^6.1.0",
-    "coveralls": "^3.1.0",
-    "jsdoc-to-markdown": "^5.0.3",
-    "minimist": "^1.2.5",
-    "test-runner": "^0.6.3"
+    "command-line-args": "^6.0.0",
+    "command-line-usage": "^7.0.3",
+    "minimist": "^1.2.8"
   }
 }
